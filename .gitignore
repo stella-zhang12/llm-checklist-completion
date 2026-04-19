@@ -1,27 +1,34 @@
-# --- Security (CRITICAL) ---
+# Security and local env
 .env
 .env.local
 .DS_Store
 
-# --- Python ---
+# Python artifacts
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.pytest_cache/
 
-# --- Virtual Environments ---
-# Assuming you might create one named venv, .venv, or env
+# Virtual environments
 venv/
 .venv/
 env/
 
-# --- IDE Settings (Optional but recommended) ---
+# IDE settings
 .vscode/
 .idea/
 
-# --- Data & Outputs (Privacy & Cleanliness) ---
-# You should ignore these to prevent leaking patient PII or cluttering the repo
+# Input and generated pipeline artifacts
 data/
 transcripts_text_eng/
 transcripts_text_viet/
+Old_transcripts_text_eng/
+Old_transcripts_text_viet/
 results/
+results_viet/
+original_pne_results/
+aggregated_results.xlsx
+aggregated_results_viet.xlsx
+ablation_stats_resume.json
+ablation_stats_viet.json
