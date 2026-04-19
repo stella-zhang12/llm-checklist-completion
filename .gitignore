@@ -1,0 +1,27 @@
+# --- Security (CRITICAL) ---
+.env
+.env.local
+.DS_Store
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Virtual Environments ---
+# Assuming you might create one named venv, .venv, or env
+venv/
+.venv/
+env/
+
+# --- IDE Settings (Optional but recommended) ---
+.vscode/
+.idea/
+
+# --- Data & Outputs (Privacy & Cleanliness) ---
+# You should ignore these to prevent leaking patient PII or cluttering the repo
+data/
+transcripts_text_eng/
+transcripts_text_viet/
+results/
