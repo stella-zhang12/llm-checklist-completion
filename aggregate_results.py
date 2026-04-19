@@ -1,10 +1,11 @@
 import os
 import json
 import pandas as pd
+from pipeline_config import AGGREGATED_ENG_OUTPUT, RESULTS_ENG_DIR
 
 # Configuration
-RESULTS_DIR = "results"
-OUTPUT_FILE = "aggregated_results.xlsx"
+RESULTS_DIR = RESULTS_ENG_DIR
+OUTPUT_FILE = AGGREGATED_ENG_OUTPUT
 
 def aggregate_results():
     all_rows = []

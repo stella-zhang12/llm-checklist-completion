@@ -2,14 +2,7 @@ import pandas as pd
 import re
 import os
 import shutil
-
-# ================================
-# Configuration
-# ================================
-INPUT_FILE = "data/llm-data-baseline-1125-translated.xlsx - data.csv"
-OUT_DIR_ENG = "transcripts_text_eng"
-OUT_DIR_VIET = "transcripts_text_viet"
-K_VALUES = range(1, 6)  # Cases 1 to 5
+from pipeline_config import INPUT_FILE, K_VALUES, TRANSCRIPTS_ENG_DIR, TRANSCRIPTS_VIET_DIR
 
 # ================================
 # Helper Functions
@@ -195,10 +188,10 @@ def main():
     print("-" * 30)
 
     # Generate English
-    make_transcripts_one_lang(df_clean, OUT_DIR_ENG, K_VALUES, "eng")
+    make_transcripts_one_lang(df_clean, TRANSCRIPTS_ENG_DIR, K_VALUES, "eng")
 
     # Generate Vietnamese
-    make_transcripts_one_lang(df_clean, OUT_DIR_VIET, K_VALUES, "viet")
+    make_transcripts_one_lang(df_clean, TRANSCRIPTS_VIET_DIR, K_VALUES, "viet")
 
 if __name__ == "__main__":
     main()

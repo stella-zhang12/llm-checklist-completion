@@ -7,27 +7,23 @@ from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, BadRequestError, NotFoundError
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pipeline_config import (
+    ABLASTATS_ENG_FILE,
+    MODELS_CONFIG,
+    OPENAI_API_KEY_ENV,
+    PROMPTS_PACKAGE,
+    RESULTS_ENG_DIR,
+    TOTAL_WORKERS,
+    TRANSCRIPTS_ENG_DIR,
+)
 
 # 1. Setup Environment
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
 
-INPUT_DIR = "transcripts_text_eng"
-BASE_OUTPUT_DIR = "results"
-STATS_FILE = "ablation_stats_resume.json"
-PROMPTS_PACKAGE = "prompts"
-
-# ==========================================
-# CONFIGURATION
-# ==========================================
-MODELS_CONFIG = {
-    "gpt-4.1": "gpt-4.1",           
-    "gpt-4.1-mini": "gpt-4.1-mini", 
-    "gpt-4.1-nano": "gpt-4.1-nano"  
-}
-
-# Fixed Pool Size
-TOTAL_WORKERS = 10
+INPUT_DIR = TRANSCRIPTS_ENG_DIR
+BASE_OUTPUT_DIR = RESULTS_ENG_DIR
+STATS_FILE = ABLASTATS_ENG_FILE
 
 def get_prompt_template(prefix):
     try:

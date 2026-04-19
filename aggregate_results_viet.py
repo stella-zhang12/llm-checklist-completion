@@ -1,12 +1,13 @@
 import os
 import json
 import pandas as pd
+from pipeline_config import AGGREGATED_VIET_OUTPUT, RESULTS_VIET_DIR
 
 # ==========================================
 # CONFIGURATION
 # ==========================================
-RESULTS_DIR = "results_viet"              # <--- Changed to VIET folder
-OUTPUT_FILE = "aggregated_results_viet.xlsx" # <--- Changed output name
+RESULTS_DIR = RESULTS_VIET_DIR              # <--- Changed to VIET folder
+OUTPUT_FILE = AGGREGATED_VIET_OUTPUT # <--- Changed output name
 
 def aggregate_results_viet():
     all_rows = []

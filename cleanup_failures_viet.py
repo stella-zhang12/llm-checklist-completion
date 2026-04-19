@@ -4,22 +4,21 @@ import importlib
 import time
 from dotenv import load_dotenv
 from openai import OpenAI
+from pipeline_config import (
+    MODELS_CONFIG,
+    OPENAI_API_KEY_ENV,
+    PROMPTS_PACKAGE,
+    RESULTS_VIET_DIR,
+    TRANSCRIPTS_VIET_DIR,
+)
 
 # 1. Setup
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
 
 # --- VIETNAMESE CONFIGURATION ---
-INPUT_DIR = "transcripts_text_viet"
-BASE_OUTPUT_DIR = "results_viet"
-PROMPTS_PACKAGE = "prompts"
-
-# Configuration (Folder Name -> Real OpenAI Model ID)
-MODELS_CONFIG = {
-    "gpt-4.1": "gpt-4.1",           
-    "gpt-4.1-mini": "gpt-4.1-mini", 
-    "gpt-4.1-nano": "gpt-4.1-nano"  
-}
+INPUT_DIR = TRANSCRIPTS_VIET_DIR
+BASE_OUTPUT_DIR = RESULTS_VIET_DIR
 
 def get_prompt_template(prefix):
     try:

@@ -4,21 +4,20 @@ import importlib
 import time
 from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, BadRequestError
+from pipeline_config import (
+    MODELS_CONFIG,
+    OPENAI_API_KEY_ENV,
+    PROMPTS_PACKAGE,
+    RESULTS_ENG_DIR,
+    TRANSCRIPTS_ENG_DIR,
+)
 
 # 1. Setup
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
 
-INPUT_DIR = "transcripts_text_eng"
-BASE_OUTPUT_DIR = "results"
-PROMPTS_PACKAGE = "prompts"
-
-# Config from your main script
-MODELS_CONFIG = {
-    "gpt-4.1": "gpt-4.1",           
-    "gpt-4.1-mini": "gpt-4.1-mini", 
-    "gpt-4.1-nano": "gpt-4.1-nano"  
-}
+INPUT_DIR = TRANSCRIPTS_ENG_DIR
+BASE_OUTPUT_DIR = RESULTS_ENG_DIR
 
 def get_prompt_template(prefix):
     try:

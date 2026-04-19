@@ -7,28 +7,24 @@ from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, BadRequestError, NotFoundError
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pipeline_config import (
+    ABLASTATS_VIET_FILE,
+    MODELS_CONFIG,
+    OPENAI_API_KEY_ENV,
+    PROMPTS_PACKAGE,
+    RESULTS_VIET_DIR,
+    TOTAL_WORKERS,
+    TRANSCRIPTS_VIET_DIR,
+)
 
 # 1. Setup Environment
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
 
 # --- CONFIGURATION CHANGES FOR VIETNAMESE RUN ---
-INPUT_DIR = "transcripts_text_viet"       # <--- New Input Folder
-BASE_OUTPUT_DIR = "results_viet"          # <--- New Output Folder
-STATS_FILE = "ablation_stats_viet.json"   # <--- New Stats File
-PROMPTS_PACKAGE = "prompts"               # Keeping same English prompts
-
-# ==========================================
-# CONFIGURATION
-# ==========================================
-MODELS_CONFIG = {
-    "gpt-4.1": "gpt-4.1",           
-    "gpt-4.1-mini": "gpt-4.1-mini", 
-    "gpt-4.1-nano": "gpt-4.1-nano"  
-}
-
-# Fixed Pool Size
-TOTAL_WORKERS = 10
+INPUT_DIR = TRANSCRIPTS_VIET_DIR       # <--- New Input Folder
+BASE_OUTPUT_DIR = RESULTS_VIET_DIR          # <--- New Output Folder
+STATS_FILE = ABLASTATS_VIET_FILE   # <--- New Stats File
 
 def get_prompt_template(prefix):
     try:
