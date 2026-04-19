@@ -6,7 +6,8 @@ import shutil
 
 import pandas as pd
 
-from pipeline_config import INPUT_FILE, K_VALUES, TRANSCRIPTS_ENG_DIR, TRANSCRIPTS_VIET_DIR
+from data_source import load_source_dataframe, resolve_source_file
+from pipeline_config import DATA_DIR, K_VALUES, TRANSCRIPTS_ENG_DIR, TRANSCRIPTS_VIET_DIR
 
 
 def safe_filename(value):
@@ -192,11 +193,17 @@ def filter_valid_rows(df):
 
 
 def main():
-    print(f"Loading {INPUT_FILE}...")
     try:
-        df = pd.read_csv(INPUT_FILE)
-    except FileNotFoundError:
-        print(f"Error: File not found at {INPUT_FILE}")
+        input_file = resolve_source_file(DATA_DIR)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"Error: {exc}")
+        return
+
+    print(f"Loading {input_file}...")
+    try:
+        df = load_source_dataframe(input_file)
+    except Exception as exc:
+        print(f"Error loading source data: {exc}")
         return
 
     print(f"Initial Rows: {len(df)}")

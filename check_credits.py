@@ -1,12 +1,11 @@
-import os
 import requests
 import json
 from dotenv import load_dotenv
-from pipeline_config import OPENAI_API_KEY_ENV
+from env_utils import get_openai_api_key
 
 # 1. Setup
 load_dotenv()
-api_key = os.getenv(OPENAI_API_KEY_ENV)
+api_key = get_openai_api_key()
 
 # 2. Define the endpoint (Using standard OpenAI endpoint, which HDSI proxies)
 url = "https://api.openai.com/v1/chat/completions"

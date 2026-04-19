@@ -2,7 +2,6 @@
 
 import importlib
 import json
-import os
 import random
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -11,7 +10,7 @@ from dotenv import load_dotenv
 from openai import BadRequestError, NotFoundError, OpenAI, RateLimitError
 from tqdm import tqdm
 
-from pipeline_config import OPENAI_API_KEY_ENV
+from env_utils import get_openai_api_key
 
 
 def _get_prompt_template(prefix, prompts_package):
@@ -104,7 +103,7 @@ def run_analysis(
 ):
     """Run the shared transcript analysis flow."""
     load_dotenv()
-    client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
+    client = OpenAI(api_key=get_openai_api_key())
 
     if require_input_dir and not os.path.exists(input_dir):
         print(f"Error: Input directory '{input_dir}' not found.")

@@ -1,9 +1,11 @@
 """Shared configuration for the checklist completion pipeline."""
 
 OPENAI_API_KEY_ENV = "OPENAI_API_KEY"
+OPENAI_API_KEY_ALT_ENV = "OPEN_API_KEY"
 
-# Input dataset
-INPUT_FILE = "data/llm-data-baseline-1125-translated.xlsx - data.csv"
+# Input dataset directory
+DATA_DIR = "data"
+DATA_FILE_EXTENSIONS = (".csv", ".xlsx", ".xls")
 
 # Transcript directories
 TRANSCRIPTS_ENG_DIR = "transcripts_text_eng"

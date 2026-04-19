@@ -49,13 +49,13 @@ pip install pandas python-dotenv openai tqdm openpyxl requests
 1. Create `.env` at repository root:
 
 ```env
-OPENAI_API_KEY=your_api_key_here
+OPEN_API_KEY=your_api_key_here
 ```
 
-2. Put the source file at:
+2. Put exactly one source file (`.csv`, `.xlsx`, or `.xls`) into:
 
 ```text
-data/llm-data-baseline-1125-translated.xlsx - data.csv
+data/
 ```
 
 ## One Command to Produce Final Excel Outputs

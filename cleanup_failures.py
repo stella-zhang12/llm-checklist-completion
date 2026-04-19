@@ -4,9 +4,9 @@ import importlib
 import time
 from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, BadRequestError
+from env_utils import get_openai_api_key
 from pipeline_config import (
     MODELS_CONFIG,
-    OPENAI_API_KEY_ENV,
     PROMPTS_PACKAGE,
     RESULTS_ENG_DIR,
     TRANSCRIPTS_ENG_DIR,
@@ -14,7 +14,7 @@ from pipeline_config import (
 
 # 1. Setup
 load_dotenv()
-client = OpenAI(api_key=os.getenv(OPENAI_API_KEY_ENV))
+client = OpenAI(api_key=get_openai_api_key())
 
 INPUT_DIR = TRANSCRIPTS_ENG_DIR
 BASE_OUTPUT_DIR = RESULTS_ENG_DIR
