@@ -1,8 +1,6 @@
 # LLM Checklist Completion
 
-Refactored migration of the original `llm_transcript_grading` workflow into a flat, root-level repository layout.
-
-The pipeline methods are unchanged:
+This repository provides a checklist-completion pipeline with three steps:
 1. Extract transcript text files from the source CSV.
 2. Analyze ENG and VIET transcripts with the same model/prompt logic.
 3. Aggregate each language result set into final Excel outputs.
