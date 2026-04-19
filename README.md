@@ -1,161 +1,103 @@
-# Preliminary Review Pipeline
+# LLM Checklist Completion
 
-A pipeline for extracting, analyzing, and aggregating medical transcript data using LLM-based evaluation.
+Refactored migration of the original `llm_transcript_grading` workflow into a flat, root-level repository layout.
 
-## Overview
+The pipeline methods are unchanged:
+1. Extract transcript text files from the source CSV.
+2. Analyze ENG and VIET transcripts with the same model/prompt logic.
+3. Aggregate each language result set into final Excel outputs.
 
-This pipeline processes medical consultation transcripts through three stages:
+## Architecture
 
-1. **Extract** -- Parse raw data and generate individual transcript text files
-2. **Analyze** -- Evaluate transcripts against clinical checklists using GPT-4o or multiple models (ablation)
-3. **Aggregate** -- Combine JSON results into a single Excel file
+GitHub can fail to render Mermaid in some contexts, so the diagram is committed as a static image:
 
-Supports both English and Vietnamese transcripts with separate processing pipelines.
+![Pipeline Architecture](docs/architecture/pipeline_architecture.svg)
 
-## Requirements
+Mermaid source: `docs/architecture/pipeline_architecture.mmd`
+
+## Repository Layout (Flat)
+
+```text
+.
+├── Makefile
+├── pipeline_config.py
+├── extract_transcript_text.py
+├── analyze_transcripts.py
+├── analyze_transcripts_viet.py
+├── aggregate_results.py
+├── aggregate_results_viet.py
+├── prompts/
+├── data/                       # input CSV location (gitignored)
+├── transcripts_text_eng/       # generated (gitignored)
+├── transcripts_text_viet/      # generated (gitignored)
+├── results/                    # generated (gitignored)
+├── results_viet/               # generated (gitignored)
+└── docs/architecture/
+```
+
+## Prerequisites
 
 - Python 3.8+
-- OpenAI API key (set in `.env` file)
+- OpenAI API key
 
-### Python Dependencies
+Install dependencies:
 
 ```bash
-pip install pandas python-dotenv openai tqdm openpyxl
+pip install pandas python-dotenv openai tqdm openpyxl requests
 ```
 
-### Environment Setup
+## Required Input Setup
 
-Create a `.env` file in this directory:
+1. Create `.env` at repository root:
 
-```
+```env
 OPENAI_API_KEY=your_api_key_here
 ```
 
-## Directory Structure
+2. Put the source file at:
 
-```
-preliminary-review-pipeline/
-├── data/                        # Input data (gitignored)
-│   └── llm-data-baseline-1125-translated.xlsx - data.csv
-├── transcripts_text_eng/        # Extracted English transcripts (gitignored)
-├── transcripts_text_viet/       # Extracted Vietnamese transcripts (gitignored)
-├── results/                     # English JSON analysis results (gitignored)
-├── results_viet/                # Vietnamese JSON analysis results (gitignored)
-│   ├── gpt-4.1/                 # Results for gpt-4o model
-│   ├── gpt-4.1-mini/            # Results for gpt-4o-mini model
-│   └── gpt-4.1-nano/            # Results for gpt-3.5-turbo model
-├── prompts/                     # Prompt templates by condition
-│   ├── __init__.py
-│   └── pne_prompt.py           # Pneumonia evaluation checklist
-├── extract_transcript_text.py   # Stage 1: Extract transcripts
-├── analyze_transcripts.py       # Stage 2: English LLM analysis
-├── analyze_transcripts_viet.py  # Stage 2: Vietnamese LLM analysis (ablation)
-├── aggregate_results.py         # Stage 3: Combine English results
-├── aggregated_results.xlsx      # English final output
-├── ablation_stats_resume.json   # English analysis stats
-├── ablation_stats_viet.json     # Vietnamese analysis stats
-├── Makefile                     # Build automation
-└── README.md
+```text
+data/llm-data-baseline-1125-translated.xlsx - data.csv
 ```
 
-## Usage
+## One Command to Produce Final Excel Outputs
 
-### Run Full Pipelines
+Run from repository root:
 
 ```bash
-# Full English pipeline
-make all
-
-# Full Vietnamese pipeline (assumes transcripts are extracted)
-make all-viet
+make run
 ```
 
-### Run Individual Stages
+This runs:
+
+- `extract` -> `analyze` -> `analyze-viet` -> `aggregate` -> `aggregate-viet`
+
+Final outputs created at root:
+
+- `aggregated_results.xlsx`
+- `aggregated_results_viet.xlsx`
+
+## Stage Commands (Optional)
 
 ```bash
-# Stage 1: Extract transcript text files from CSV
 make extract
-
-# Stage 2: Analyze English transcripts with GPT-4o
 make analyze
-
-# Stage 2: Analyze Vietnamese transcripts with multiple models (ablation)
 make analyze-viet
-
-# Stage 3: Aggregate English JSON results to Excel
 make aggregate
+make aggregate-viet
 ```
-
-### Other Commands
-
-```bash
-# Remove generated files (keeps data/)
-make clean
-
-# Remove everything including extracted transcripts
-make clean-all
-
-# Show available commands
-make help
-```
-
-## Pipeline Details
-
-### Stage 1: Extract (`extract_transcript_text.py`)
-
-- **Input**: `data/llm-data-baseline-1125-translated.xlsx - data.csv`
-- **Output**: `transcripts_text_eng/` and `transcripts_text_viet/`
-
-Parses the source CSV and generates individual text files for each patient case. Files are named using the pattern: `{condition}__{patient_name}__case_{k}.txt`
-
-Filters out test records (names containing "test" or ending in "009").
-
-### Stage 2: Analyze English (`analyze_transcripts.py`)
-
-- **Input**: `transcripts_text_eng/*.txt`
-- **Output**: `results/*.json`
-
-For each transcript, the script:
-1. Extracts the condition prefix from the filename (e.g., `pne`)
-2. Loads the corresponding prompt template from `prompts/{prefix}_prompt.py`
-3. Sends the transcript to GPT-4o for evaluation
-4. Saves the structured JSON response
-
-Skips files that already have results (incremental processing).
-
-### Stage 2: Analyze Vietnamese (`analyze_transcripts_viet.py`)
-
-- **Input**: `transcripts_text_viet/*.txt`
-- **Output**: `results_viet/{model}/*.json`
-
-Similar to English analysis, but:
-- Processes Vietnamese transcripts
-- Runs ablation testing across multiple models: gpt-4o, gpt-4o-mini, gpt-3.5-turbo
-- Outputs results in subdirectories by model
-- Generates timing statistics in `ablation_stats_viet.json`
-
-Uses the same English prompt templates with Vietnamese text inserted.
-
-### Stage 3: Aggregate (`aggregate_results.py`)
-
-- **Input**: `results/*.json`
-- **Output**: `aggregated_results.xlsx`
-
-Combines all English JSON results into a single Excel file with:
-- Metadata columns: Filename, Prefix, Patient_Name, Case_ID
-- Variable columns: All checklist items from the evaluation
-
-## Adding New Conditions
-
-To add evaluation for a new condition (e.g., diabetes):
-
-1. Create `prompts/dia_prompt.py` with a `PROMPT_TEMPLATE` variable
-2. Ensure transcript filenames start with `dia__` prefix
-3. Run `make analyze` or `make analyze-viet` -- new files will be processed automatically
 
 ## Notes
 
-- The `.gitignore` excludes `data/`, `transcripts_text_*/`, and `results*/` to protect PII
-- Analysis uses `temperature=0` for reproducible results
-- Existing results are skipped -- delete `results/` or `results_viet/` to reprocess all files
-- Vietnamese pipeline focuses on ablation testing; aggregation for Vietnamese results may require a separate script
+- Existing JSON result files are skipped by the analysis scripts.
+- To force a full re-run, remove `results/` and `results_viet/` then run `make run`.
+- Output schema remains metadata-first:
+  - `coder`, `Prefix`, `Patient_Name`, `Case_ID`, `Filename`, then checklist variables.
+
+## Development Checks
+
+Run non-API regression tests:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py'
+```
