@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720">
+  <defs>
+    <style>
+      .title { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 14px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 500 12px Arial, sans-serif; fill: #334155; }
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 10; ry: 10; }
+      .accent { fill: #e2e8f0; stroke: #0f172a; stroke-width: 2; rx: 10; ry: 10; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155" />
+    </marker>
+  </defs>
+
+  <text x="40" y="45" class="title">LLM Checklist Completion Pipeline (Flat Root Layout)</text>
+
+  <rect x="40" y="90" width="360" height="64" class="box" />
+  <text x="60" y="128" class="label">data/llm-data-baseline-1125-translated.xlsx - data.csv</text>
+
+  <rect x="470" y="90" width="260" height="64" class="accent" />
+  <text x="500" y="128" class="label">extract_transcript_text.py</text>
+
+  <rect x="800" y="60" width="240" height="64" class="box" />
+  <text x="855" y="98" class="label">transcripts_text_eng/</text>
+
+  <rect x="800" y="160" width="240" height="64" class="box" />
+  <text x="852" y="198" class="label">transcripts_text_viet/</text>
+
+  <rect x="1110" y="60" width="240" height="64" class="accent" />
+  <text x="1144" y="98" class="label">analyze_transcripts.py</text>
+
+  <rect x="1110" y="160" width="240" height="64" class="accent" />
+  <text x="1121" y="198" class="label">analyze_transcripts_viet.py</text>
+
+  <rect x="1110" y="290" width="240" height="64" class="box" />
+  <text x="1168" y="328" class="label">results/&lt;model&gt;</text>
+
+  <rect x="1110" y="390" width="240" height="64" class="box" />
+  <text x="1143" y="428" class="label">results_viet/&lt;model&gt;</text>
+
+  <rect x="780" y="290" width="260" height="64" class="accent" />
+  <text x="824" y="328" class="label">aggregate_results.py</text>
+
+  <rect x="780" y="390" width="260" height="64" class="accent" />
+  <text x="800" y="428" class="label">aggregate_results_viet.py</text>
+
+  <rect x="430" y="290" width="280" height="64" class="box" />
+  <text x="465" y="328" class="label">aggregated_results.xlsx</text>
+
+  <rect x="430" y="390" width="280" height="64" class="box" />
+  <text x="438" y="428" class="label">aggregated_results_viet.xlsx</text>
+
+  <rect x="40" y="290" width="320" height="164" class="accent" />
+  <text x="75" y="330" class="label">Makefile orchestration</text>
+  <text x="75" y="360" class="small">run: extract analyze analyze-viet</text>
+  <text x="75" y="385" class="small">aggregate aggregate-viet</text>
+  <text x="75" y="425" class="small">Single command: make run</text>
+
+  <line x1="400" y1="122" x2="470" y2="122" class="arrow" />
+  <line x1="730" y1="122" x2="800" y2="92" class="arrow" />
+  <line x1="730" y1="122" x2="800" y2="192" class="arrow" />
+
+  <line x1="1040" y1="92" x2="1110" y2="92" class="arrow" />
+  <line x1="1040" y1="192" x2="1110" y2="192" class="arrow" />
+
+  <line x1="1230" y1="124" x2="1230" y2="290" class="arrow" />
+  <line x1="1230" y1="224" x2="1230" y2="390" class="arrow" />
+
+  <line x1="1110" y1="322" x2="1040" y2="322" class="arrow" />
+  <line x1="1110" y1="422" x2="1040" y2="422" class="arrow" />
+
+  <line x1="780" y1="322" x2="710" y2="322" class="arrow" />
+  <line x1="780" y1="422" x2="710" y2="422" class="arrow" />
+
+  <line x1="360" y1="322" x2="470" y2="122" class="arrow" />
+  <line x1="360" y1="350" x2="1110" y2="92" class="arrow" />
+  <line x1="360" y1="380" x2="1110" y2="192" class="arrow" />
+  <line x1="360" y1="410" x2="780" y2="322" class="arrow" />
+  <line x1="360" y1="440" x2="780" y2="422" class="arrow" />
+</svg>
