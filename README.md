@@ -9,7 +9,7 @@ The pipeline methods are unchanged:
 
 ## Architecture
 
-GitHub can fail to render Mermaid in some contexts, so the diagram is committed as a static image:
+Pipeline architecture diagram:
 
 ![Pipeline Architecture](docs/architecture/pipeline_architecture.svg)
 
