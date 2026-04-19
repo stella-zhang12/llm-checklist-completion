@@ -1,77 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1030" viewBox="0 0 1900 1030">
   <defs>
     <style>
-      .title { font: 700 24px Arial, sans-serif; fill: #0f172a; }
-      .label { font: 600 14px Arial, sans-serif; fill: #0f172a; }
-      .small { font: 500 12px Arial, sans-serif; fill: #334155; }
-      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 10; ry: 10; }
-      .accent { fill: #e2e8f0; stroke: #0f172a; stroke-width: 2; rx: 10; ry: 10; }
-      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
-      .divider { stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 8 6; }
+      .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+      .lane { font: 700 22px Arial, sans-serif; fill: #334155; }
+      .label { font: 600 19px Arial, sans-serif; fill: #0f172a; text-anchor: middle; }
+      .small { font: 500 15px Arial, sans-serif; fill: #334155; }
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2.5; rx: 12; ry: 12; }
+      .accent { fill: #e2e8f0; stroke: #0f172a; stroke-width: 2.5; rx: 12; ry: 12; }
+      .flow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .flow-dashed { stroke: #64748b; stroke-width: 2.5; stroke-dasharray: 8 6; fill: none; marker-end: url(#arrowhead-light); }
+      .divider { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 10 8; }
     </style>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#334155" />
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
+    </marker>
+    <marker id="arrowhead-light" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
     </marker>
   </defs>
 
-  <text x="40" y="45" class="title">LLM Checklist Completion Pipeline (Flat Root Layout)</text>
+  <text x="70" y="55" class="title">LLM Checklist Completion Pipeline (Flat Root Layout)</text>
 
-  <rect x="40" y="90" width="330" height="150" class="accent" />
-  <text x="65" y="125" class="label">Makefile orchestration</text>
-  <text x="65" y="155" class="small">run: extract analyze analyze-viet</text>
-  <text x="65" y="178" class="small">aggregate aggregate-viet</text>
-  <text x="65" y="213" class="small">Single command: make run</text>
+  <rect x="70" y="90" width="420" height="170" class="accent"/>
+  <text x="105" y="130" class="small" style="font-weight:700; font-size:26px; fill:#0f172a;">Makefile orchestration</text>
+  <text x="105" y="168" class="small">run: extract analyze analyze-viet</text>
+  <text x="105" y="194" class="small">aggregate aggregate-viet</text>
+  <text x="105" y="232" class="small">Single command: make run</text>
 
-  <line x1="40" y1="285" x2="1360" y2="285" class="divider" />
-  <text x="40" y="315" class="small">English lane</text>
-  <text x="40" y="560" class="small">Vietnamese lane</text>
+  <polyline points="280,260 280,390 710,390 710,430" class="flow-dashed"/>
 
-  <rect x="50" y="340" width="360" height="64" class="box" />
-  <text x="70" y="378" class="label">data/llm-data-baseline-1125-translated.xlsx - data.csv</text>
+  <line x1="70" y1="570" x2="1840" y2="570" class="divider"/>
+  <text x="900" y="255" class="lane">English lane</text>
+  <text x="900" y="605" class="lane">Vietnamese lane</text>
 
-  <rect x="460" y="340" width="280" height="64" class="accent" />
-  <text x="500" y="378" class="label">extract_transcript_text.py</text>
+  <rect x="70" y="430" width="430" height="90" class="box"/>
+  <text x="285" y="468" class="small" style="font-weight:700; text-anchor:middle; fill:#0f172a;">data/llm-data-baseline-1125-</text>
+  <text x="285" y="493" class="small" style="font-weight:700; text-anchor:middle; fill:#0f172a;">translated.xlsx - data.csv</text>
 
-  <rect x="790" y="315" width="230" height="56" class="box" />
-  <text x="830" y="349" class="label">transcripts_text_eng/</text>
+  <rect x="560" y="430" width="300" height="90" class="accent"/>
+  <text x="710" y="484" class="label">extract_transcript_text.py</text>
 
-  <rect x="1060" y="315" width="260" height="56" class="accent" />
-  <text x="1100" y="349" class="label">analyze_transcripts.py</text>
+  <rect x="900" y="280" width="250" height="80" class="box"/>
+  <text x="1025" y="328" class="label">transcripts_text_eng/</text>
 
-  <rect x="1060" y="415" width="260" height="56" class="box" />
-  <text x="1130" y="449" class="label">results/&lt;model&gt;</text>
+  <rect x="1210" y="280" width="270" height="80" class="accent"/>
+  <text x="1345" y="328" class="label">analyze_transcripts.py</text>
 
-  <rect x="790" y="415" width="230" height="56" class="accent" />
-  <text x="820" y="449" class="label">aggregate_results.py</text>
+  <rect x="1520" y="280" width="300" height="80" class="box"/>
+  <text x="1670" y="328" class="label">results/&lt;model&gt;</text>
 
-  <rect x="510" y="415" width="230" height="56" class="box" />
-  <text x="540" y="449" class="label">aggregated_results.xlsx</text>
+  <rect x="1520" y="400" width="300" height="80" class="accent"/>
+  <text x="1670" y="448" class="label">aggregate_results.py</text>
 
-  <rect x="790" y="560" width="230" height="56" class="box" />
-  <text x="826" y="594" class="label">transcripts_text_viet/</text>
+  <rect x="1520" y="520" width="300" height="80" class="box"/>
+  <text x="1670" y="568" class="label">aggregated_results.xlsx</text>
 
-  <rect x="1060" y="560" width="260" height="56" class="accent" />
-  <text x="1080" y="594" class="label">analyze_transcripts_viet.py</text>
+  <rect x="900" y="620" width="250" height="80" class="box"/>
+  <text x="1025" y="668" class="label">transcripts_text_viet/</text>
 
-  <rect x="1060" y="660" width="260" height="56" class="box" />
-  <text x="1103" y="694" class="label">results_viet/&lt;model&gt;</text>
+  <rect x="1210" y="620" width="270" height="80" class="accent"/>
+  <text x="1345" y="668" class="label">analyze_transcripts_viet.py</text>
 
-  <rect x="790" y="660" width="230" height="56" class="accent" />
-  <text x="804" y="694" class="label">aggregate_results_viet.py</text>
+  <rect x="1520" y="620" width="300" height="80" class="box"/>
+  <text x="1670" y="668" class="label">results_viet/&lt;model&gt;</text>
 
-  <rect x="510" y="660" width="230" height="56" class="box" />
-  <text x="520" y="694" class="label">aggregated_results_viet.xlsx</text>
+  <rect x="1520" y="740" width="300" height="80" class="accent"/>
+  <text x="1670" y="788" class="label">aggregate_results_viet.py</text>
 
-  <line x1="410" y1="372" x2="460" y2="372" class="arrow" />
-  <line x1="740" y1="372" x2="790" y2="343" class="arrow" />
-  <line x1="1020" y1="343" x2="1060" y2="343" class="arrow" />
-  <line x1="1190" y1="371" x2="1190" y2="415" class="arrow" />
-  <line x1="1060" y1="443" x2="1020" y2="443" class="arrow" />
-  <line x1="790" y1="443" x2="740" y2="443" class="arrow" />
+  <rect x="1520" y="860" width="300" height="80" class="box"/>
+  <text x="1670" y="908" class="label">aggregated_results_viet.xlsx</text>
 
-  <line x1="740" y1="372" x2="790" y2="588" class="arrow" />
-  <line x1="1020" y1="588" x2="1060" y2="588" class="arrow" />
-  <line x1="1190" y1="616" x2="1190" y2="660" class="arrow" />
-  <line x1="1060" y1="688" x2="1020" y2="688" class="arrow" />
-  <line x1="790" y1="688" x2="740" y2="688" class="arrow" />
+  <line x1="500" y1="475" x2="560" y2="475" class="flow"/>
+  <polyline points="860,458 880,458 880,320 900,320" class="flow"/>
+  <polyline points="860,492 880,492 880,660 900,660" class="flow"/>
+
+  <line x1="1150" y1="320" x2="1210" y2="320" class="flow"/>
+  <line x1="1480" y1="320" x2="1520" y2="320" class="flow"/>
+  <line x1="1670" y1="360" x2="1670" y2="400" class="flow"/>
+  <line x1="1670" y1="480" x2="1670" y2="520" class="flow"/>
+
+  <line x1="1150" y1="660" x2="1210" y2="660" class="flow"/>
+  <line x1="1480" y1="660" x2="1520" y2="660" class="flow"/>
+  <line x1="1670" y1="700" x2="1670" y2="740" class="flow"/>
+  <line x1="1670" y1="820" x2="1670" y2="860" class="flow"/>
 </svg>
