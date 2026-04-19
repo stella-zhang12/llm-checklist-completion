@@ -12,18 +12,22 @@ RESULTS_VIET_DIR := results_viet
 
 # Output
 OUTPUT_FILE := aggregated_results.xlsx
+OUTPUT_FILE_VIET := aggregated_results_viet.xlsx
 
 # =====================================
 # Main Targets
 # =====================================
 
-.PHONY: all all-viet extract analyze analyze-viet aggregate clean clean-all help
+.PHONY: all all-viet run extract analyze analyze-viet aggregate aggregate-viet clean clean-all help
 
 ## Run the full English pipeline
 all: extract analyze aggregate
 
 ## Run the full Vietnamese pipeline (assumes transcripts are extracted)
 all-viet: analyze-viet
+
+## Run full ENG + VIET pipeline and aggregate both outputs
+run: extract analyze analyze-viet aggregate aggregate-viet
 
 ## Stage 1: Extract transcript text files from CSV
 extract:
@@ -45,6 +49,11 @@ aggregate:
 	@echo "=== Stage 3: Aggregating English results ==="
 	$(PYTHON) aggregate_results.py
 
+## Stage 3: Aggregate JSON results to Excel (Vietnamese)
+aggregate-viet:
+	@echo "=== Stage 3: Aggregating Vietnamese results ==="
+	$(PYTHON) aggregate_results_viet.py
+
 # =====================================
 # Directory Creation
 # =====================================
@@ -63,7 +72,7 @@ $(RESULTS_VIET_DIR):
 clean:
 	@echo "Removing results directories and output file..."
 	rm -rf $(RESULTS_DIR) $(RESULTS_VIET_DIR)
-	rm -f $(OUTPUT_FILE)
+	rm -f $(OUTPUT_FILE) $(OUTPUT_FILE_VIET)
 
 ## Remove all generated files (transcripts + results)
 clean-all: clean
@@ -84,10 +93,12 @@ help:
 	@echo "Targets:"
 	@echo "  all          Run full English pipeline (extract -> analyze -> aggregate)"
 	@echo "  all-viet     Run full Vietnamese pipeline (analyze-viet)"
+	@echo "  run          Run full pipeline for ENG and VIET outputs"
 	@echo "  extract      Stage 1: Extract transcript text files from CSV"
 	@echo "  analyze      Stage 2: Analyze English transcripts with GPT-4o"
 	@echo "  analyze-viet Stage 2: Analyze Vietnamese transcripts with multiple models"
 	@echo "  aggregate    Stage 3: Aggregate English JSON results to Excel"
+	@echo "  aggregate-viet Stage 3: Aggregate Vietnamese JSON results to Excel"
 	@echo "  clean        Remove results/ and output file"
 	@echo "  clean-all    Remove all generated files (transcripts + results)"
 	@echo "  help         Show this help message"
