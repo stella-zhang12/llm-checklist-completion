@@ -1,0 +1,14 @@
+{
+  "results": [
+    {
+      "output_variable": "pne_h_1",
+      "value_type": "select_one_yesno",
+      "value": 1
+    },
+    {
+      "output_variable": "pne_d",
+      "value_type": "select_one_yesno",
+      "value": 1
+    }
+  ]
+}
