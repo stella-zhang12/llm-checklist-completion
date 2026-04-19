@@ -25,7 +25,7 @@ Mermaid source: `docs/architecture/pipeline_architecture.mmd`
 ├── aggregate_results.py
 ├── aggregate_results_viet.py
 ├── prompts/
-├── data/                       # input CSV location (gitignored)
+├── data/                       # input source location (.gitkeep tracked)
 ├── transcripts_text_eng/       # generated (gitignored)
 ├── transcripts_text_viet/      # generated (gitignored)
 ├── results/                    # generated (gitignored)
@@ -41,6 +41,9 @@ Mermaid source: `docs/architecture/pipeline_architecture.mmd`
 Install dependencies:
 
 ```bash
+python3 -m venv .venc
+source .venc/bin/activate
+pip install --upgrade pip
 pip install pandas python-dotenv openai tqdm openpyxl requests
 ```
 

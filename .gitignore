@@ -12,6 +12,7 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
+.venc/
 env/
 
 # IDE settings
@@ -19,7 +20,8 @@ env/
 .idea/
 
 # Input and generated pipeline artifacts
-data/
+data/*
+!data/.gitkeep
 transcripts_text_eng/
 transcripts_text_viet/
 Old_transcripts_text_eng/
